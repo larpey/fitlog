@@ -1,8 +1,5 @@
 # FitLog
 
-CSCI 380.61W Final Project
-Luke Arpey
-
 A workout tracking app. React frontend, Express backend, MongoDB database.
 
 ## How to run
