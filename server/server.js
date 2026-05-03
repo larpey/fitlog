@@ -24,12 +24,26 @@ app.use('/api/stats', statsRoutes);
 
 // start the server
 async function start() {
+  console.log('=== FitLog server starting ===');
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+  console.log('PORT env:', process.env.PORT);
+  console.log('MONGO_URI present:', !!process.env.MONGO_URI);
+  console.log('MONGO_URI length:', process.env.MONGO_URI ? process.env.MONGO_URI.length : 0);
+  if (process.env.MONGO_URI) {
+    console.log('MONGO_URI prefix:', process.env.MONGO_URI.substring(0, 25));
+  }
+
   let uri = process.env.MONGO_URI;
   if (!uri) {
+    if (process.env.RAILWAY_ENVIRONMENT) {
+      console.error('FATAL: MONGO_URI not set on Railway. Refusing to fall back to in-memory.');
+      process.exit(1);
+    }
     const mem = await MongoMemoryServer.create();
     uri = mem.getUri();
     console.log('using in-memory mongo');
   }
+
   await mongoose.connect(uri);
   console.log('mongo connected');
 
