@@ -83,7 +83,7 @@ function LogWorkout() {
     };
 
     const token = localStorage.getItem('token');
-    axios.post('/api/workouts', payload, {
+    axios.post(import.meta.env.VITE_API_BASE + '/api/workouts', payload, {
       headers: { Authorization: 'Bearer ' + token }
     })
       .then(() => {

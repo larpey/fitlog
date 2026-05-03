@@ -21,7 +21,7 @@ function Login() {
       return;
     }
 
-    axios.post('/api/auth/login', { email: email, password: password })
+    axios.post(import.meta.env.VITE_API_BASE + '/api/auth/login', { email: email, password: password })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data.user));

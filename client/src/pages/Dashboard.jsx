@@ -14,7 +14,7 @@ function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('/api/stats', {
+    axios.get(import.meta.env.VITE_API_BASE + '/api/stats', {
       headers: { Authorization: 'Bearer ' + token }
     })
       .then((res) => {

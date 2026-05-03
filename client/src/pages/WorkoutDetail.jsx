@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const API = import.meta.env.VITE_API_BASE;
+
 // formula for estimated 1 rep max (Epley)
 function get1RM(weight, reps) {
   if (!weight || !reps) return 0;
@@ -22,11 +24,11 @@ function WorkoutDetail() {
     const headers = { Authorization: 'Bearer ' + token };
 
     // get this workout
-    axios.get('/api/workouts/' + id, { headers })
+    axios.get(API + '/api/workouts/' + id, { headers })
       .then((res) => {
         setWorkout(res.data);
         // also get all workouts to check for PRs
-        return axios.get('/api/workouts', { headers });
+        return axios.get(API + '/api/workouts', { headers });
       })
       .then((res) => {
         setAllWorkouts(res.data);
@@ -88,7 +90,7 @@ function WorkoutDetail() {
         sets: ex.sets.map(s => ({ weight: s.weight, reps: s.reps }))
       }))
     };
-    axios.post('/api/workouts', payload, {
+    axios.post(API + '/api/workouts', payload, {
       headers: { Authorization: 'Bearer ' + token }
     })
       .then((res) => {
@@ -103,7 +105,7 @@ function WorkoutDetail() {
   function handleDelete() {
     if (!window.confirm('Delete this workout?')) return;
     const token = localStorage.getItem('token');
-    axios.delete('/api/workouts/' + id, {
+    axios.delete(API + '/api/workouts/' + id, {
       headers: { Authorization: 'Bearer ' + token }
     })
       .then(() => {

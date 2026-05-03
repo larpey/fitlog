@@ -22,7 +22,7 @@ function Register() {
       return;
     }
 
-    axios.post('/api/auth/register', { email, password, name })
+    axios.post(import.meta.env.VITE_API_BASE + '/api/auth/register', { email, password, name })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data.user));
