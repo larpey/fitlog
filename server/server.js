@@ -9,7 +9,7 @@ const workoutRoutes = require('./routes/workouts');
 const statsRoutes = require('./routes/stats');
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
